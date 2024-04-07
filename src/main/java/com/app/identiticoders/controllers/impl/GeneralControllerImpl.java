@@ -2,6 +2,7 @@ package com.app.identiticoders.controllers.impl;
 
 import com.app.identiticoders.controllers.GeneralController;
 import com.app.identiticoders.responses.BaseResponse;
+import com.app.identiticoders.utils.ResponseHelper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,9 +14,6 @@ public class GeneralControllerImpl implements GeneralController {
 
     @Override
     public ResponseEntity<BaseResponse> ping() {
-        return new ResponseEntity<>(BaseResponse.builder()
-                .success(true)
-                .data("ponggg")
-                .build(), HttpStatus.OK);
+        return ResponseHelper.buildOkResponse("PONG");
     }
 }

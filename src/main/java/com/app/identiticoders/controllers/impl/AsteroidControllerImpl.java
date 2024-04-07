@@ -19,7 +19,7 @@ public class AsteroidControllerImpl implements AsteroidController {
     private AsteroidServices asteroidServices;
 
     @Override
-    public ResponseEntity<BaseResponse> getClosestAsteroid(Date startDate, Date endDate) {
+    public ResponseEntity<BaseResponse> getClosestAsteroid(String startDate, String endDate) {
         return ResponseHelper.buildOkResponse(asteroidServices.getTopTenAsteroids(startDate, endDate));
     }
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,10 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NeoFeedResponse {
+
+    @SerializedName("element_count")
+    private int elementCount;
+
     @SerializedName("near_earth_objects")
     private Map<String, List<Asteroid>> nearEarthObjects;
 
@@ -68,7 +71,7 @@ public class NeoFeedResponse {
     @NoArgsConstructor
     public static class CloseApproachData {
         @SerializedName("close_approach_date_full")
-        private LocalDateTime closeApproachDateFull;
+        private String closeApproachDateFull;
 
         @SerializedName("relative_velocity")
         private RelativeVelocity relativeVelocity;

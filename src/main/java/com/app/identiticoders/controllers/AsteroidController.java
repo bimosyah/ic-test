@@ -14,6 +14,6 @@ import java.util.Date;
 public interface AsteroidController {
 
     @GetMapping
-    ResponseEntity<BaseResponse> getClosestAsteroid(@RequestParam(value = "start_date", required = false) Date startDate,
-                                                    @RequestParam(value = "end_date", required = false) Date endDate);
+    ResponseEntity<BaseResponse> getClosestAsteroid(@RequestParam(value = "start_date", required = false) String startDate,
+                                                    @RequestParam(value = "end_date", required = false) String endDate);
 }

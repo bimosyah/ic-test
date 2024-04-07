@@ -14,19 +14,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Component
 @Slf4j
-public class NasaConfiguration {
-    private NasaClient nasaClient;
+public class NasaService {
+    private final NasaClient nasaClient;
 
-    @Value("${nasa.api.key}")
     String apiKey;
 
-    public NasaConfiguration(@Value("${nasa.host}") String host) {
+    public NasaService(@Value("${nasa.host}") String host,
+                       @Value("${nasa.api.key}") String apiKey) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder().addInterceptor(chain -> {
             Request original = chain.request();
-            Request.Builder builder = original.newBuilder();
-            Request request = builder.build();
+            Request request = original.newBuilder().build();
             return chain.proceed(request);
         }).addInterceptor(logging);
 
@@ -36,6 +35,7 @@ public class NasaConfiguration {
                 .client(httpClient.build())
                 .build();
 
+        this.apiKey = apiKey;
         this.nasaClient = retrofit.create(NasaClient.class);
     }
 
@@ -47,7 +47,6 @@ public class NasaConfiguration {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        assert execute != null;
         return execute.body();
     }
 }

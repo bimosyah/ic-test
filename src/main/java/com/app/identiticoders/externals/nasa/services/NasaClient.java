@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface NasaClient {
 
-    @GET("/v1/feed")
+    @GET("v1/feed")
     Call<NeoFeedResponse> getAsteroids(@Query("start_date") String startDate,
                                        @Query("end_date") String endDate,
                                        @Query("api_key") String apiKey);

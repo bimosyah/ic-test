@@ -15,7 +15,7 @@ public class GeneralControllerImpl implements GeneralController {
     public ResponseEntity<BaseResponse> ping() {
         return new ResponseEntity<>(BaseResponse.builder()
                 .success(true)
-                .data("pong")
+                .data("ponggg")
                 .build(), HttpStatus.OK);
     }
 }

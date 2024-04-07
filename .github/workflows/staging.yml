@@ -84,6 +84,6 @@ jobs:
             sudo chmod 666 /var/run/docker.sock
             docker login --username  ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_TOKEN }}
             docker pull bimosyahputro88/ic-backend-test:latest
-            docker stop web-server
-            docker rm web-server
-            docker run --name web-server -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest
+            docker stop ic-backend
+            docker rm ic-backend
+            docker run --name ic-backend -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest

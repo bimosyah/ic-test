@@ -2,7 +2,9 @@ package com.app.identiticoders.services;
 
 import com.app.identiticoders.responses.AsteroidResponse;
 
+import java.util.List;
+
 public interface AsteroidServices {
 
-    AsteroidResponse getTopTenAsteroids(String startDate, String endDate);
+    List<AsteroidResponse> getTopTenAsteroids(String startDate, String endDate);
 }

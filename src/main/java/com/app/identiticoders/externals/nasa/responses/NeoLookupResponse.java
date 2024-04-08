@@ -11,7 +11,7 @@ public class NeoLookupResponse {
     private String id;
 
     @SerializedName("neo_reference_id")
-    private String neo_reference_id;
+    private String neoReferenceId;
 
     @SerializedName("name")
     private String name;

@@ -1,14 +1,18 @@
 package com.app.identiticoders.services.impl;
 
 
+import com.app.identiticoders.externals.nasa.responses.CloseApproachData;
 import com.app.identiticoders.externals.nasa.responses.NeoFeedResponse;
 import com.app.identiticoders.externals.nasa.responses.NeoLookupResponse;
 import com.app.identiticoders.externals.nasa.services.NasaService;
+import com.app.identiticoders.responses.AsteroidDetailResponse;
 import com.app.identiticoders.responses.AsteroidResponse;
 import com.app.identiticoders.services.AsteroidServices;
+import com.app.identiticoders.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -91,8 +95,57 @@ public class AsteroidServicesImpl implements AsteroidServices {
     }
 
     @Override
-    public String getAsteroidDetail(String asteroidId) {
+    public AsteroidDetailResponse getAsteroidDetail(String asteroidId) {
         NeoLookupResponse neoLookupData = nasaService.getNeoLookupData(asteroidId);
-        return "";
+        AsteroidDetailResponse.AsteroidDetailResponseBuilder builder = AsteroidDetailResponse.builder();
+        builder.id(neoLookupData.getId());
+        builder.name(neoLookupData.getName());
+        builder.neoReferenceId(neoLookupData.getNeoReferenceId());
+        builder.estimatedDiameterMinKilometers(neoLookupData.getEstimatedDiameter().getKilometers().getEstimatedDiameterMin());
+        builder.estimatedDiameterMaxKilometers(neoLookupData.getEstimatedDiameter().getKilometers().getEstimatedDiameterMax());
+        builder.isPotentiallyHazardousAsteroid(neoLookupData.isPotentiallyHazardousAsteroid());
+        builder.orbitId(neoLookupData.getOrbitalData().getOrbitId());
+        builder.orbitDeterminationDate(neoLookupData.getOrbitalData().getOrbitDeterminationDate());
+        builder.firstObservationDate(neoLookupData.getOrbitalData().getFirstObservationDate());
+        builder.lastObservationDate(neoLookupData.getOrbitalData().getLastObservationDate());
+        builder.observationsUsed(neoLookupData.getOrbitalData().getObservationsUsed());
+        builder.minimumOrbitIntersection(neoLookupData.getOrbitalData().getMinimumOrbitIntersection());
+        builder.orbitalPeriod(neoLookupData.getOrbitalData().getOrbitalPeriod());
+        builder.orbitClassType(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassType());
+        builder.orbitClassDescription(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassDescription());
+        builder.orbitClassRange(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassRange());
+        builder.closeApproachData(getCloseFiveDataFromNow(neoLookupData.getCloseApproachData()));
+        return builder.build();
+    }
+
+    private AsteroidDetailResponse.CloseApproachData mapCloseApproachData(CloseApproachData closeApproachDatum) {
+        return AsteroidDetailResponse.CloseApproachData.builder()
+                .closeApproachDate(closeApproachDatum.getCloseApproachDate())
+                .closeApproachDateFull(closeApproachDatum.getCloseApproachDateFull())
+                .velocityKilometersPerSecond(closeApproachDatum.getRelativeVelocity().getKilometersPerSecond())
+                .velocityKilometersPerHour(closeApproachDatum.getRelativeVelocity().getKilometersPerHour())
+                .distanceKilometers(closeApproachDatum.getMissDistance().getKilometers())
+                .orbitingBody(closeApproachDatum.getOrbitingBody())
+                .build();
+    }
+
+    private List<AsteroidDetailResponse.CloseApproachData> getCloseFiveDataFromNow(List<CloseApproachData> closeApproachData) {
+        List<AsteroidDetailResponse.CloseApproachData> responses = new ArrayList<>();
+
+        int maxSize = 5;
+        int currentDataAfterNow = 0;
+        for (CloseApproachData data : closeApproachData) {
+            LocalDate now = LocalDate.now();
+            LocalDate approachDate = DateUtils.convertStringToLocalDate(data.getCloseApproachDate());
+            if (approachDate.isAfter(now)) {
+                currentDataAfterNow++;
+            }
+            responses.add(mapCloseApproachData(data));
+            if (currentDataAfterNow == maxSize) {
+                break;
+            }
+        }
+
+        return responses;
     }
 }

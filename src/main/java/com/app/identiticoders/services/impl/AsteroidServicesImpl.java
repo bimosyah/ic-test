@@ -4,6 +4,7 @@ package com.app.identiticoders.services.impl;
 import com.app.identiticoders.externals.nasa.responses.NeoFeedResponse;
 import com.app.identiticoders.externals.nasa.responses.NeoLookupResponse;
 import com.app.identiticoders.externals.nasa.services.NasaService;
+import com.app.identiticoders.responses.AsteroidDetailResponse;
 import com.app.identiticoders.responses.AsteroidResponse;
 import com.app.identiticoders.services.AsteroidServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +92,29 @@ public class AsteroidServicesImpl implements AsteroidServices {
     }
 
     @Override
-    public String getAsteroidDetail(String asteroidId) {
+    public AsteroidDetailResponse getAsteroidDetail(String asteroidId) {
         NeoLookupResponse neoLookupData = nasaService.getNeoLookupData(asteroidId);
-        return "";
+        AsteroidDetailResponse.AsteroidDetailResponseBuilder builder = AsteroidDetailResponse.builder();
+        builder.id(neoLookupData.getId());
+        builder.name(neoLookupData.getName());
+        builder.neoReferenceId(neoLookupData.getNeoReferenceId());
+        builder.estimatedDiameterMinKilometers(neoLookupData.getEstimatedDiameter().getKilometers().getEstimatedDiameterMin());
+        builder.estimatedDiameterMaxKilometers(neoLookupData.getEstimatedDiameter().getKilometers().getEstimatedDiameterMax());
+        builder.isPotentiallyHazardousAsteroid(neoLookupData.isPotentiallyHazardousAsteroid());
+//        builder.closeApproachDateFull();
+//        builder.velocityKilometersPerSecond();
+//        builder.velocityKilometersPerHour();
+//        builder.distanceKilometers();
+        builder.orbitId(neoLookupData.getOrbitalData().getOrbitId());
+        builder.orbitDeterminationDate(neoLookupData.getOrbitalData().getOrbitDeterminationDate());
+        builder.firstObservationDate(neoLookupData.getOrbitalData().getFirstObservationDate());
+        builder.lastObservationDate(neoLookupData.getOrbitalData().getLastObservationDate());
+        builder.observationsUsed(neoLookupData.getOrbitalData().getObservationsUsed());
+        builder.minimumOrbitIntersection(neoLookupData.getOrbitalData().getMinimumOrbitIntersection());
+        builder.orbitalPeriod(neoLookupData.getOrbitalData().getOrbitalPeriod());
+        builder.orbitClassType(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassType());
+        builder.orbitClassDescription(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassDescription());
+        builder.orbitClassRange(neoLookupData.getOrbitalData().getOrbitClass().getOrbitClassRange());
+        return builder.build();
     }
 }

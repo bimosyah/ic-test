@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+
+import java.util.List;
 
 @Builder
 @Data
@@ -15,10 +18,6 @@ public class AsteroidDetailResponse {
     private Double estimatedDiameterMinKilometers;
     private Double estimatedDiameterMaxKilometers;
     private boolean isPotentiallyHazardousAsteroid;
-    private String closeApproachDateFull;
-    private Double velocityKilometersPerSecond;
-    private Double velocityKilometersPerHour;
-    private Double distanceKilometers;
     private String orbitId;
     private String orbitDeterminationDate;
     private String firstObservationDate;
@@ -29,5 +28,17 @@ public class AsteroidDetailResponse {
     private String orbitClassType;
     private String orbitClassDescription;
     private String orbitClassRange;
+    private List<CloseApproachData> closeApproachData;
+
+    @Getter
+    @Builder
+    public static class CloseApproachData {
+        private String closeApproachDate;
+        private String closeApproachDateFull;
+        private Double velocityKilometersPerSecond;
+        private Double velocityKilometersPerHour;
+        private Double distanceKilometers;
+        private String orbitingBody;
+    }
 
 }

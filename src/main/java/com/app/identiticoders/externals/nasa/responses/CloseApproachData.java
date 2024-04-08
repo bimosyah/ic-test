@@ -1,15 +1,9 @@
 package com.app.identiticoders.externals.nasa.responses;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CloseApproachData {
     @SerializedName("close_approach_date")
     private String closeApproachDate;
@@ -27,9 +21,6 @@ public class CloseApproachData {
     private String orbitingBody;
 
     @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class RelativeVelocity {
         @SerializedName("kilometers_per_second")
         private Double kilometersPerSecond;
@@ -39,9 +30,6 @@ public class CloseApproachData {
     }
 
     @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class MissDistance {
         @SerializedName("kilometers")
         private Double kilometers;

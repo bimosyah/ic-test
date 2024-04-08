@@ -2,6 +2,7 @@ package com.app.identiticoders.services.impl;
 
 
 import com.app.identiticoders.externals.nasa.responses.NeoFeedResponse;
+import com.app.identiticoders.externals.nasa.responses.NeoLookupResponse;
 import com.app.identiticoders.externals.nasa.services.NasaService;
 import com.app.identiticoders.responses.AsteroidResponse;
 import com.app.identiticoders.services.AsteroidServices;
@@ -87,5 +88,11 @@ public class AsteroidServicesImpl implements AsteroidServices {
             }
         });
         return distanceEachId;
+    }
+
+    @Override
+    public String getAsteroidDetail(String asteroidId) {
+        NeoLookupResponse neoLookupData = nasaService.getNeoLookupData(asteroidId);
+        return "";
     }
 }

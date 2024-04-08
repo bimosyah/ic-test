@@ -1,11 +1,14 @@
 package com.app.identiticoders.externals.nasa.services;
 
+import com.app.identiticoders.exceptions.NotFoundException;
 import com.app.identiticoders.externals.nasa.responses.NeoFeedResponse;
+import com.app.identiticoders.externals.nasa.responses.NeoLookupResponse;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -46,6 +49,21 @@ public class NasaService {
             execute = call.execute();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+        return execute.body();
+    }
+
+    public NeoLookupResponse getNeoLookupData(String id) {
+        Call<NeoLookupResponse> call = nasaClient.getAsteroidsDetail(id, apiKey);
+        Response<NeoLookupResponse> execute = null;
+        try {
+            execute = call.execute();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if (HttpStatus.NOT_FOUND.value() == execute.code()) {
+            throw new NotFoundException("Id not found");
         }
         return execute.body();
     }

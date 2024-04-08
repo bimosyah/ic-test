@@ -7,4 +7,6 @@ import java.util.List;
 public interface AsteroidServices {
 
     List<AsteroidResponse> getTopTenAsteroids(String startDate, String endDate);
+
+    String getAsteroidDetail(String asteroidId);
 }

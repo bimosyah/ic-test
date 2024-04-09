@@ -25,9 +25,9 @@ mvn clean install
 * Run Project
 
 
-![Image Alt text](/images/arch diagram.jpg)
+![Image Alt text](https://raw.githubusercontent.com/bimosyah/ic-test/master/images/arch%20diagram.jpg)
 
-![Image Alt text](/images/cicd pipeline.jpg)
+![Image Alt text](https://github.com/bimosyah/ic-test/blob/master/images/cicd%20pipeline.jpg?raw=true)
 
 ## API Doc
 

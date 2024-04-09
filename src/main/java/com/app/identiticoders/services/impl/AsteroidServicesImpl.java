@@ -30,7 +30,7 @@ public class AsteroidServicesImpl implements AsteroidServices {
     public List<AsteroidResponse> getTopTenAsteroids(String startDate, String endDate) {
         NeoFeedResponse neoFeedData = nasaService.getNeoFeedData(startDate, endDate);
         Map<String, Double> distanceEachAsteroid = getDistanceEachAsteroid(neoFeedData);
-        distanceEachAsteroid = sortedAndLimitMap(distanceEachAsteroid);
+        distanceEachAsteroid = getTopTesClosestDistance(distanceEachAsteroid);
         List<NeoFeedResponse.Asteroid> asteroidObjects = getAsteroidObjects(neoFeedData, distanceEachAsteroid);
         return getAsteroidResponse(asteroidObjects);
     }
@@ -66,7 +66,7 @@ public class AsteroidServicesImpl implements AsteroidServices {
         return asteroidList;
     }
 
-    private LinkedHashMap<String, Double> sortedAndLimitMap(Map<String, Double> distanceEachAsteroid) {
+    private LinkedHashMap<String, Double> getTopTesClosestDistance(Map<String, Double> distanceEachAsteroid) {
         int maxSize = 10;
         return distanceEachAsteroid.entrySet()
                 .stream()

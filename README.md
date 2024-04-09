@@ -12,19 +12,17 @@ Before you begin, ensure you have met the following requirements:
 * You have a `<Windows/Linux/Mac>` machine.
 * You have installed intellij idea
 
-## Installing Dependencies
-
-```
-mvn clean install
-```
-
 ## How to Run Project
+* Clone the project <br>
+  > git clone <repository_url>
+* Navigate to the Project Directory  <br>
+  > cd <project_directory>
+* Build the Project <br>
+  > ./mvnw clean package
+* Run the Project <br>
+  > ./mvnw spring-boot:run
 
-* Clone this repo
-* Open Project using Intellij Idea
-* Run Project
-
-
+## Simple Architectur And CI/CD
 ![Image Alt text](https://raw.githubusercontent.com/bimosyah/ic-test/master/images/arch%20diagram.jpg)
 
 ![Image Alt text](https://github.com/bimosyah/ic-test/blob/master/images/cicd%20pipeline.jpg?raw=true)

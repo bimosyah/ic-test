@@ -133,7 +133,7 @@ public class AsteroidServicesImpl implements AsteroidServices {
         List<AsteroidDetailResponse.CloseApproachData> responses = new ArrayList<>();
 
         int maxSize = 5;
-        int currentDataAfterNow = 0;
+        int currentDataAfterNow = 0; // i want to capture only from begining until 5 data after now
         for (CloseApproachData data : closeApproachData) {
             LocalDate now = LocalDate.now();
             LocalDate approachDate = DateUtils.convertStringToLocalDate(data.getCloseApproachDate());
@@ -141,7 +141,7 @@ public class AsteroidServicesImpl implements AsteroidServices {
                 currentDataAfterNow++;
             }
             responses.add(mapCloseApproachData(data));
-            if (currentDataAfterNow == maxSize) {
+            if (currentDataAfterNow == maxSize) { // i want to capture only from begining until 5 data after now
                 break;
             }
         }

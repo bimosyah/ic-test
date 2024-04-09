@@ -8,11 +8,15 @@ import lombok.Setter;
 
 
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class EstimatedDiameter {
     @SerializedName("kilometers")
-    private NeoFeedResponse.Diameter kilometers;
-}
+    private Diameter kilometers;
 
+    @Getter
+    public static class Diameter {
+        @SerializedName("estimated_diameter_min")
+        private Double estimatedDiameterMin;
+        @SerializedName("estimated_diameter_max")
+        private Double estimatedDiameterMax;
+    }
+}

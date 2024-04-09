@@ -64,7 +64,7 @@ jobs:
           push: true
           tags: bimosyahputro88/ic-backend-test:latest
 
-  deploy-staging:
+  deploy-production:
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     needs:

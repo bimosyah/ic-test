@@ -42,7 +42,7 @@ public class NasaService {
         this.nasaClient = retrofit.create(NasaClient.class);
     }
 
-    public NeoFeedResponse getNeoFeedData(String startDate, String endDate) {
+    public Response<NeoFeedResponse> getNeoFeedData(String startDate, String endDate) {
         Call<NeoFeedResponse> call = nasaClient.getAsteroids(startDate, endDate, apiKey);
         Response<NeoFeedResponse> execute = null;
         try {
@@ -50,10 +50,10 @@ public class NasaService {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return execute.body();
+        return execute;
     }
 
-    public NeoLookupResponse getNeoLookupData(String id) {
+    public Response<NeoLookupResponse> getNeoLookupData(String id) {
         Call<NeoLookupResponse> call = nasaClient.getAsteroidsDetail(id, apiKey);
         Response<NeoLookupResponse> execute = null;
         try {
@@ -65,6 +65,6 @@ public class NasaService {
         if (HttpStatus.NOT_FOUND.value() == execute.code()) {
             throw new NotFoundException("Id not found");
         }
-        return execute.body();
+        return execute;
     }
 }

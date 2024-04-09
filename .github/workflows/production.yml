@@ -20,8 +20,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Install Maven dependencies
+      - name: Build
         run: mvn install
+
+      - name: Test
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+
+      - name: Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Maven Tests
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: true
 
   docker-build:
     if: ${{ github.ref == 'refs/heads/master' }}

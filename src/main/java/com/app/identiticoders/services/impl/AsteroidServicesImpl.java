@@ -11,6 +11,7 @@ import com.app.identiticoders.services.AsteroidServices;
 import com.app.identiticoders.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import retrofit2.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class AsteroidServicesImpl implements AsteroidServices {
 
     @Override
     public List<AsteroidResponse> getTopTenAsteroids(String startDate, String endDate) {
-        NeoFeedResponse neoFeedData = nasaService.getNeoFeedData(startDate, endDate);
+        Response<NeoFeedResponse> response = nasaService.getNeoFeedData(startDate, endDate);
+        NeoFeedResponse neoFeedData = response.body();
         Map<String, Double> distanceEachAsteroid = getDistanceEachAsteroid(neoFeedData);
         distanceEachAsteroid = getTopTesClosestDistance(distanceEachAsteroid);
         List<NeoFeedResponse.Asteroid> asteroidObjects = getAsteroidObjects(neoFeedData, distanceEachAsteroid);
@@ -96,7 +98,8 @@ public class AsteroidServicesImpl implements AsteroidServices {
 
     @Override
     public AsteroidDetailResponse getAsteroidDetail(String asteroidId) {
-        NeoLookupResponse neoLookupData = nasaService.getNeoLookupData(asteroidId);
+        Response<NeoLookupResponse> response = nasaService.getNeoLookupData(asteroidId);
+        NeoLookupResponse neoLookupData = response.body();
         AsteroidDetailResponse.AsteroidDetailResponseBuilder builder = AsteroidDetailResponse.builder();
         builder.id(neoLookupData.getId());
         builder.name(neoLookupData.getName());

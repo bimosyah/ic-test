@@ -16,4 +16,9 @@ public class GeneralControllerImpl implements GeneralController {
     public ResponseEntity<BaseResponse> ping() {
         return ResponseHelper.buildOkResponse("PONG");
     }
+
+    @Override
+    public ResponseEntity<BaseResponse> hello() {
+        return ResponseHelper.buildOkResponse("Hellow");
+    }
 }

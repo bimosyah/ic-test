@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("ping")
+@RequestMapping()
 public interface GeneralController {
 
-    @GetMapping
+    @GetMapping("/ping")
     ResponseEntity<BaseResponse> ping();
+
+    @GetMapping
+    ResponseEntity<BaseResponse> hello();
 }

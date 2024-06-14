@@ -94,5 +94,5 @@ jobs:
             docker rm ic-backend
             docker run --name ic-backend -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest
           host: ${{ secrets.SERVER_HOST }}
-          user: ubuntu
+          user: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}

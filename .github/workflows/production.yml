@@ -90,8 +90,8 @@ jobs:
             sudo chmod 666 /var/run/docker.sock
             docker login --username  ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_TOKEN }}
             docker pull bimosyahputro88/ic-backend-test:latest
-            docker stop ic-backend
-            docker rm ic-backend
+            docker stop ic-backend-test
+            docker rm ic-backend-test
             docker run --name ic-backend -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest
           host: ${{ secrets.SERVER_HOST }}
           user: ${{ secrets.SERVER_USER }}

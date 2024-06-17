@@ -92,7 +92,7 @@ jobs:
             docker pull bimosyahputro88/ic-backend-test:latest
             docker stop ic-backend-test
             docker rm ic-backend-test
-            docker run --name ic-backend -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest
+            docker run --name ic-backend-test -d -p 8081:8081 bimosyahputro88/ic-backend-test:latest
           host: ${{ secrets.SERVER_HOST }}
           user: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
